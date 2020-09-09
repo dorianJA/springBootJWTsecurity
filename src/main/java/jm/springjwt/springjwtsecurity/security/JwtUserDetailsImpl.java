@@ -1,8 +1,7 @@
 package jm.springjwt.springjwtsecurity.security;
 
 import jm.springjwt.springjwtsecurity.model.User;
-import jm.springjwt.springjwtsecurity.security.jwt.JwtUser;
-import jm.springjwt.springjwtsecurity.security.jwt.JwtUserFactory;
+
 import jm.springjwt.springjwtsecurity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,12 +22,12 @@ public class JwtUserDetailsImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("UserDetails load user");
         User user = userService.getUserByName(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        JwtUser jwtUser = JwtUserFactory.create(user);
-        return jwtUser;
+
+        return user;
     }
 }
